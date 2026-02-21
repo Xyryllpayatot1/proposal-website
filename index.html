@@ -3,9 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ModernShop - Premium Store</title>
+<title>ModernShop - Premium Experience</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
+:root {
+  --primary: #111;
+  --accent: #6366f1;
+  --bg: #f5f7fa;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -14,79 +21,120 @@
 }
 
 body {
-  background: #f8f9fb;
-  color: #111;
+  background: var(--bg);
+  color: var(--primary);
+  overflow-x: hidden;
 }
 
+/* HEADER */
 header {
   background: white;
   padding: 20px 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.04);
   position: sticky;
   top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 .logo {
   font-weight: 700;
   font-size: 20px;
+  letter-spacing: 1px;
 }
 
 .cart-btn {
-  background: black;
+  background: var(--primary);
   color: white;
   padding: 10px 18px;
   border: none;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: all .3s ease;
 }
 
+.cart-btn:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* HERO */
 .hero {
-  padding: 80px 8%;
+  padding: 120px 8%;
   text-align: center;
+  background: linear-gradient(to bottom right, #ffffff, #eef2ff);
+  animation: fadeIn 1s ease forwards;
 }
 
 .hero h1 {
-  font-size: 42px;
+  font-size: 48px;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 .hero p {
   color: #666;
   margin-bottom: 30px;
+  font-size: 18px;
 }
 
 .hero button {
-  padding: 14px 30px;
-  background: black;
+  padding: 14px 32px;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all .3s ease;
 }
 
+.hero button:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* PRODUCTS */
 .products {
-  padding: 60px 8%;
+  padding: 80px 8%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 30px;
 }
 
 .card {
   background: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
   text-align: center;
+  transition: all .4s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 .card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
+  transition: transform .4s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
 }
 
 .card h3 {
@@ -100,25 +148,33 @@ header {
 
 .card button {
   margin-top: 15px;
-  padding: 10px 18px;
-  background: black;
+  padding: 10px 20px;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all .3s ease;
 }
 
+.card button:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* CART */
 .cart {
   position: fixed;
-  right: -400px;
+  right: -420px;
   top: 0;
-  width: 350px;
+  width: 380px;
   height: 100%;
   background: white;
-  box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-  padding: 20px;
-  transition: 0.3s;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+  padding: 30px;
+  transition: right .4s ease;
   overflow-y: auto;
+  z-index: 2000;
 }
 
 .cart.active {
@@ -131,27 +187,39 @@ header {
 
 .cart-item {
   margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
   padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 .checkout-btn {
   width: 100%;
-  padding: 12px;
-  background: black;
+  padding: 14px;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-top: 20px;
   cursor: pointer;
+  transition: all .3s ease;
 }
 
+.checkout-btn:hover {
+  background: var(--accent);
+}
+
+/* FOOTER */
 footer {
   text-align: center;
-  padding: 30px;
+  padding: 40px;
   background: white;
-  margin-top: 60px;
+  margin-top: 80px;
   color: #777;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -163,45 +231,49 @@ footer {
 </header>
 
 <section class="hero">
-  <h1>Premium Products. Minimal Experience.</h1>
-  <p>Designed to convert visitors into customers.</p>
-  <button onclick="scrollToProducts()">Shop Now</button>
+  <h1>Premium Products. Elevated Experience.</h1>
+  <p>Designed with precision to maximize engagement and conversion.</p>
+  <button onclick="scrollToProducts()">Explore Collection</button>
 </section>
 
-<section class="products" id="products">
-</section>
+<section class="products" id="products"></section>
 
 <div class="cart" id="cart">
   <h2>Your Cart</h2>
   <div id="cart-items"></div>
-  <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+  <button class="checkout-btn" onclick="checkout()">Secure Checkout</button>
 </div>
 
 <footer>
-  © 2026 ModernShop. Built for conversion.
+  © 2026 ModernShop. Crafted with precision.
 </footer>
 
 <script>
 const products = [
-  { id: 1, name: "Premium Hoodie", price: 49, img: "https://picsum.photos/300/200?1" },
-  { id: 2, name: "Minimal Sneakers", price: 89, img: "https://picsum.photos/300/200?2" },
-  { id: 3, name: "Luxury Watch", price: 199, img: "https://picsum.photos/300/200?3" },
-  { id: 4, name: "Everyday Backpack", price: 79, img: "https://picsum.photos/300/200?4" }
+  { id: 1, name: "Premium Hoodie", price: 49, img: "https://picsum.photos/400/300?1" },
+  { id: 2, name: "Minimal Sneakers", price: 89, img: "https://picsum.photos/400/300?2" },
+  { id: 3, name: "Luxury Watch", price: 199, img: "https://picsum.photos/400/300?3" },
+  { id: 4, name: "Everyday Backpack", price: 79, img: "https://picsum.photos/400/300?4" }
 ];
 
 let cart = [];
 
 function renderProducts() {
   const container = document.getElementById("products");
-  products.forEach(product => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="${product.img}" />
-        <h3>${product.name}</h3>
-        <p>$${product.price}</p>
-        <button onclick="addToCart(${product.id})">Add to Cart</button>
-      </div>
+  products.forEach((product, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.innerHTML = `
+      <img src="${product.img}" />
+      <h3>${product.name}</h3>
+      <p>$${product.price}</p>
+      <button onclick="addToCart(${product.id})">Add to Cart</button>
     `;
+    container.appendChild(card);
+
+    setTimeout(() => {
+      card.classList.add("visible");
+    }, 200 * index);
   });
 }
 
@@ -234,7 +306,7 @@ function scrollToProducts() {
 }
 
 function checkout() {
-  alert("Checkout integration (Stripe/PayPal) would be connected here.");
+  alert("Secure payment gateway integration (Stripe/PayPal) will be connected here.");
 }
 
 renderProducts();
