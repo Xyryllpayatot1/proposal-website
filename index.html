@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ModernShop - Premium Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #f8f9fb;
+  color: #111;
+}
+
+header {
+  background: white;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.cart-btn {
+  background: black;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.hero {
+  padding: 80px 8%;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.hero button {
+  padding: 14px 30px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.products {
+  padding: 60px 8%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card h3 {
+  margin: 15px 0 8px;
+}
+
+.card p {
+  color: #666;
+  font-size: 14px;
+}
+
+.card button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cart {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 350px;
+  height: 100%;
+  background: white;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  transition: 0.3s;
+  overflow-y: auto;
+}
+
+.cart.active {
+  right: 0;
+}
+
+.cart h2 {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  margin-top: 60px;
+  color: #777;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ModernShop</div>
+  <button class="cart-btn" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button>
+</header>
+
+<section class="hero">
+  <h1>Premium Products. Minimal Experience.</h1>
+  <p>Designed to convert visitors into customers.</p>
+  <button onclick="scrollToProducts()">Shop Now</button>
+</section>
+
+<section class="products" id="products">
+</section>
+
+<div class="cart" id="cart">
+  <h2>Your Cart</h2>
+  <div id="cart-items"></div>
+  <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+</div>
+
+<footer>
+  © 2026 ModernShop. Built for conversion.
+</footer>
+
+<script>
+const products = [
+  { id: 1, name: "Premium Hoodie", price: 49, img: "https://picsum.photos/300/200?1" },
+  { id: 2, name: "Minimal Sneakers", price: 89, img: "https://picsum.photos/300/200?2" },
+  { id: 3, name: "Luxury Watch", price: 199, img: "https://picsum.photos/300/200?3" },
+  { id: 4, name: "Everyday Backpack", price: 79, img: "https://picsum.photos/300/200?4" }
+];
+
+let cart = [];
+
+function renderProducts() {
+  const container = document.getElementById("products");
+  products.forEach(product => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${product.img}" />
+        <h3>${product.name}</h3>
+        <p>$${product.price}</p>
+        <button onclick="addToCart(${product.id})">Add to Cart</button>
+      </div>
+    `;
+  });
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  cart.push(product);
+  updateCart();
+}
+
+function updateCart() {
+  document.getElementById("cart-count").innerText = cart.length;
+  const cartItems = document.getElementById("cart-items");
+  cartItems.innerHTML = "";
+  cart.forEach(item => {
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <strong>${item.name}</strong>
+        <p>$${item.price}</p>
+      </div>
+    `;
+  });
+}
+
+function toggleCart() {
+  document.getElementById("cart").classList.toggle("active");
+}
+
+function scrollToProducts() {
+  document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+}
+
+function checkout() {
+  alert("Checkout integration (Stripe/PayPal) would be connected here.");
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
